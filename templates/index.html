@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>Netflix İçerik Analizi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-content">
+      <h1>Netflix İçerik Analizi</h1>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="dashboard-container">
+      <div class="main-container">
+        <div class="chart-box left-column">
+          <h2>En Çok İçerik Üreten 10 Ülke</h2>
+          <div id="topCountriesBox" class="country-box chart-container">
+            <canvas id="countriesChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-box right-column">
+          <h2>En Çok İçerik Üretilen 10 Tür</h2>
+          <div id="topGenresBox" class="genre-box chart-container">
+            <canvas id="genresChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yönetmenler ve Oyuncular kutuları (yan yana) -->
+      <div class="main-container">
+        <div class="second-box-left">
+          <h2>En Çok İçerik Yapan Yönetmenler</h2>
+          <div id="topDirectorsBox" class="director-box"></div>
+        </div>
+
+        <div class="second-box-right">
+          <h2>En Çok İçerik Yapan Oyuncular</h2>
+          <div id="topActorsBox" class="actor-box"></div>
+        </div>
+      </div>
+    </div>
+
+          
+       
+      <div class="recent-container">
+        <div class="section-header">
+          <h2><i class="fas fa-clock"></i> En Son Eklenenler</h2>
+        </div>
+        <div class="show-grid" id="recent-shows">
+          <div class="show-card skeleton"></div>
+          <div class="show-card skeleton"></div>
+          <div class="show-card skeleton"></div>
+          <div class="show-card skeleton"></div>
+          <div class="show-card skeleton"></div>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+
+  <footer class="footer">
+    <p>© 2021 Netflix İçerik Analizi | Veriye dayalı içerik istatistikleri</p>
+    <p class="disclaimer">Bu bir fan projesidir, Netflix ile resmi bağlantısı yoktur.</p>
+  </footer>
+
+  <script src="/static/js/main.js"></script>
+</body>
