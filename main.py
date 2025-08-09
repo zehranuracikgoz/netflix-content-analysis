@@ -44,9 +44,10 @@ def top_directors():
 @app.route("/api/recently-added")
 def recently_added():
     try:
-        recent = df.sort_values(by='release_year', ascending=False).head(5)
+        recent = df.sort_values(by='release_year', ascending=False).head(10)
         
         results = []
+        for _, row in recent.iterrows():
             item = {
                 "type": row['type'],
                 "title": row['title'],
@@ -58,6 +59,8 @@ def recently_added():
                 "genres": [g.strip() for g in row['listed_in'].split(',')]
             }
             
+            if 'imdb_id' in df.columns and pd.notna(row['imdb_id']):
+                item["imdb_link"] = f"https://www.imdb.com/title/{row['imdb_id']}"
             
             results.append(item)
             
