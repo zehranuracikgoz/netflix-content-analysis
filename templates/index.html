@@ -21,20 +21,19 @@
       <div class="main-container">
         <div class="chart-box left-column">
           <h2>En Çok İçerik Üreten 10 Ülke</h2>
-          <div id="topCountriesBox" class="country-box chart-container">
+          <div id="topCountriesBox" class="country-box">
             <canvas id="countriesChart"></canvas>
           </div>
         </div>
         
         <div class="chart-box right-column">
           <h2>En Çok İçerik Üretilen 10 Tür</h2>
-          <div id="topGenresBox" class="genre-box chart-container">
+          <div id="topGenresBox" class="genre-box">
             <canvas id="genresChart"></canvas>
           </div>
         </div>
       </div>
 
-      <!-- Yönetmenler ve Oyuncular kutuları (yan yana) -->
       <div class="main-container">
         <div class="second-box-left">
           <h2>En Çok İçerik Yapan Yönetmenler</h2>
@@ -47,23 +46,19 @@
         </div>
       </div>
     </div>
-
-          
-       
-      <div class="recent-container">
-        <div class="section-header">
-          <h2><i class="fas fa-clock"></i> En Son Eklenenler</h2>
-        </div>
-        <div class="show-grid" id="recent-shows">
-          <div class="show-card skeleton"></div>
-          <div class="show-card skeleton"></div>
-          <div class="show-card skeleton"></div>
-          <div class="show-card skeleton"></div>
-          <div class="show-card skeleton"></div>
-        </div>
+      
+    <div class="recent-container">
+      <div class="section-header">
+        <h2><i class="fas fa-clock"></i> En Son Eklenenler</h2>
       </div>
+        <button id="prevBtn" class="carousel-btn" aria-label="Önceki">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button id="nextBtn" class="carousel-btn" aria-label="Sonraki">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      <div class="show-grid" id="recent-shows"></div>
     </div>
-    
   </main>
 
   <footer class="footer">
