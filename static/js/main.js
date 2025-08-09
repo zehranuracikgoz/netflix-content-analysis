@@ -42,19 +42,20 @@ async function renderRecentlyAdded() {
     const res = await fetch('/api/recently-added');
     const { results } = await res.json();
     const container = document.getElementById('recent-shows');
+
     container.innerHTML = '';
 
-    results.forEach(show => {
-      const imdbLink = show.imdb_link
-        ? `<a href="${show.imdb_link}" target="_blank" class="imdb-link">IMDb</a>`
-        : '';
+    results.slice(0, 10).forEach(show => {
+      const date = new Date(show.date_added); // burada date oluştur
+      const options = { month: 'long', year: 'numeric' };
+      const formattedDate = date.toLocaleDateString('tr-TR', options);
 
       const showElement = document.createElement('div');
       showElement.className = 'show-card';
       showElement.innerHTML = `
         <h3>${show.title} (${show.release_year})</h3>
         <p class="show-type">${show.type}</p>
-        <p class="show-date">Eklenme: ${show.date_added}</p>
+        <p class="show-date">Eklenme: ${formattedDate}</p>
         <p class="show-meta">
           <span>${show.rating}</span> • 
           <span>${show.duration}</span>
@@ -62,10 +63,20 @@ async function renderRecentlyAdded() {
         <div class="show-genres">
           ${show.genres.map(g => `<span>${g}</span>`).join('')}
         </div>
-        ${imdbLink}
       `;
       container.appendChild(showElement);
     });
+
+    const cardWidth = container.querySelector(".show-card").offsetWidth + 10;
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      container.scrollBy({ left: cardWidth, behavior: "smooth" });
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+      container.scrollBy({ left: -cardWidth, behavior: "smooth" });
+    });
+
   } catch (err) {
     console.error("Hata:", err);
     document.getElementById('recent-shows').innerHTML =
