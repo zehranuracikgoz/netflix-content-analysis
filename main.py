@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template
 import pandas as pd
+import re
 
 app = Flask(__name__)
 
@@ -11,32 +12,54 @@ fill_columns = ['country', 'rating', 'duration', 'director', 'cast', 'listed_in'
 for col in fill_columns:
     df[col] = df[col].fillna('unknown')
 
+
 df['year_added'] = df['date_added'].dt.year
 
 all_countries = df['country'].str.split(',').explode().str.strip()
 all_genres = df['listed_in'].str.split(',').explode().str.strip()
+df['listed_in'] = df['listed_in'].str.replace(r'(,\s*)?Movies(,\s*)?', '', regex=True)
 
 
 @app.route("/api/top-countries")
 def top_countries():
+    all_countries = (
+      df['country']
+      .loc[df['country'] != 'unknown']
+    )
     top_10 = all_countries.value_counts().head(10).to_dict()
     return jsonify(top_10)
 
 @app.route("/api/top-genres")
 def top_genres():
+    all_genres =(
+      df['listed_in']
+      .loc[df['listed_in'] != 'unknown']
+    )
     top_10 = all_genres.value_counts().head(10).to_dict()
     return jsonify(top_10)
 
 @app.route("/api/top_actors")
 def top_actors():
-    all_actors = df['cast'].str.split(',').explode().str.strip()
+    all_actors = (
+      df['cast']
+      .loc[df['cast'] != 'unknown']
+      .str.split(',')
+      .explode()
+      .str.strip()
+    )
     top_10 = all_actors.value_counts().head(10).to_dict()
     return jsonify(top_10)
 
 
 @app.route("/api/top_directors")
 def top_directors():
-    all_directors = df['director'].str.split(',').explode().str.strip()
+    all_directors = (
+      df['director']
+      .loc[df['director'] != 'unknown']
+      .str.split(',')
+      .explode()
+      .str.strip()
+    )
     top_10 = all_directors.value_counts().head(10).to_dict()
     return jsonify(top_10)
 
