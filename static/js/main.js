@@ -46,7 +46,7 @@ async function renderRecentlyAdded() {
     container.innerHTML = '';
 
     results.slice(0, 10).forEach(show => {
-      const date = new Date(show.date_added); // burada date oluştur
+      const date = new Date(show.date_added);
       const options = { month: 'long', year: 'numeric' };
       const formattedDate = date.toLocaleDateString('tr-TR', options);
 
@@ -61,7 +61,7 @@ async function renderRecentlyAdded() {
           <span>${show.duration}</span>
         </p>
         <div class="show-genres">
-          ${show.genres.map(g => `<span>${g}</span>`).join('')}
+          ${show.genres.map(g => `<span>${g}</span>`).join(' ')}
         </div>
       `;
       container.appendChild(showElement);
