@@ -9,17 +9,72 @@ async function fetchAndRenderList(apiUrl, containerId, listClass, itemLabel) {
     const ul = document.createElement('ul');
     ul.classList.add(listClass);
 
-    Object.entries(data).forEach(([key, count]) => {
-      const li = document.createElement('li');
-      li.textContent = `${key} — ${count}`;
-      ul.appendChild(li);
-    });
+    data.forEach(item => {
+  let name = '';
 
+  switch (itemLabel) {
+    case 'Yönetmen':
+      name = item.director;
+      break;
+    case 'Oyuncu':
+      name = item.actor;
+      break;
+    case 'Ülke':
+      name = item.country;
+      break;
+    case 'Tür':
+      name = item.genre;
+      break;
+    default:
+      name = 'Bilinmiyor';
+  }
+
+  const li = document.createElement('li');
+  li.textContent = `${name} — ${item.count}`;
+  ul.appendChild(li);
+});
+
+
+    const btnLi = document.createElement("li");
+    btnLi.style.listStyle = "none";
+    btnLi.style.textAlign = "center";
+    btnLi.style.marginTop =  "10px";
+
+    const btn = document.createElement("button");
+    btn.textContent = `${itemLabel} İçin Daha Fazla Göster`;
+    btn.classList.add("load-more-btn");
+
+    btn.addEventListener("click", () => {
+    let targetUrl = "";
+
+    switch(itemLabel) {
+      case "Yönetmen":
+        targetUrl = "/directors";
+        break;
+      case "Oyuncu":
+        targetUrl = "/actors";
+        break;
+      case "Ülke":
+        targetUrl = "/countries";
+        break;
+      case "Tür":
+        targetUrl = "/genres";
+        break;
+    }
+
+    if(targetUrl) {
+      window.location.href = targetUrl;
+    }
+  });
+
+    btnLi.appendChild(btn);
+    ul.appendChild(btnLi);
     box.appendChild(ul);
   } catch (err) {
     console.error(`${itemLabel} verisi yüklenemedi:`, err);
   }
 }
+
 
 async function renderTopCountriesBox() {
   await fetchAndRenderList("/api/top-countries", "topCountriesBox", "country-list", "Ülke");
